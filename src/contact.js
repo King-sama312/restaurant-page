@@ -3,7 +3,7 @@ export default function loadContact() {
     content.textContent = '';
 
     const title = document.createElement('h1');
-    title.textContent = "Contace Us";
+    title.textContent = "Contact Us";
 
     const info =document.createElement('div');
     info.classList.add('contact-info');

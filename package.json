@@ -6,7 +6,8 @@
   "type":"module",
   "scripts": {    
     "start": "webpack serve",
-    "build": "webpack"
+    "build": "webpack",
+    "deploy":"./deploy.sh"
   },
   "keywords": [],
   "author": "",
