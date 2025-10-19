@@ -1,25 +1,18 @@
 #!/bin/bash
 
-# 1️⃣ Build the site
-echo "Building the site..."
-npm run build
+# Safe Odin Project deployment script
+# Works in WSL/Linux
 
-# 2️⃣ Switch to gh-pages branch
-echo "Switching to gh-pages branch..."
-git checkout gh-pages
+# 1️⃣ Build the project
+echo "🚀 Building the site..."
+npm run build || { echo "❌ Build failed!"; exit 1; }
 
-# 3️⃣ Merge latest main
-echo "Merging main into gh-pages..."
-git merge main --no-edit
-
-# 4️⃣ Push dist folder to gh-pages
-echo "Pushing dist folder to gh-pages..."
+# 2️⃣ Stage dist folder (optional commit)
 git add dist -f
-git commit -m "Deploy updated site" || echo "No changes to commit"
-git subtree push --prefix dist origin gh-pages
+git commit -m "Deploy updated site" || echo "ℹ️ No changes to commit"
 
-# 5️⃣ Switch back to main
-echo "Switching back to main branch..."
-git checkout main
+# 3️⃣ Push dist folder to gh-pages without switching branches
+echo "📤 Pushing dist/ to gh-pages..."
+git push origin `git subtree split --prefix dist main`:gh-pages --force || { echo "❌ Push failed!"; exit 1; }
 
-echo "✅ Deployment complete!"
+echo "✅ Deployment complete! Your site should be live."
